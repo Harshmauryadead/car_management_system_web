@@ -5,27 +5,27 @@ import { twMerge } from "tailwind-merge";
 
 // Define button variants using class-variance-authority (CVA)
 export const buttonVariants = cva(
-	"inline-flex items-center justify-center w-full rounded-md transition-all focus:outline-none active:scale-95",
+	"inline-flex items-center justify-center w-full rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95 shadow-sm",
 	{
 		variants: {
 			color: {
-				primary: "bg-blue-600 text-white hover:bg-blue-700",
-				secondary: "bg-gray-600 text-white hover:bg-gray-700",
-				danger: "bg-red-600 text-white hover:bg-red-700",
-				success: "bg-green-600 text-white hover:bg-green-700",
+				primary: "bg-indigo-500 text-white hover:bg-indigo-600 focus:ring-indigo-400",
+				secondary: "bg-gray-700 text-white hover:bg-gray-800 focus:ring-gray-500",
+				danger: "bg-rose-500 text-white hover:bg-rose-600 focus:ring-rose-400",
+				success: "bg-emerald-500 text-white hover:bg-emerald-600 focus:ring-emerald-400",
 			},
 			size: {
-				small: "px-4 py-2 text-sm",
-				medium: "px-6 py-3 text-base",
-				large: "px-8 py-4 text-lg",
+				small: "px-3 py-1.5 text-sm font-medium",
+				medium: "px-5 py-2 text-base font-semibold",
+				large: "px-7 py-3 text-lg font-bold",
 			},
 			variant: {
 				filled: "",
-				outlined: "border-2 border-current bg-transparent",
-				text: "bg-transparent text-current",
+				outlined: "border-2 border-current bg-transparent hover:bg-opacity-10",
+				text: "bg-transparent text-current hover:underline",
 			},
 			disabled: {
-				true: "opacity-50 cursor-not-allowed",
+				true: "opacity-50 cursor-not-allowed pointer-events-none",
 				false: "",
 			},
 		},

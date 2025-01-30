@@ -65,7 +65,7 @@ export default function CarDetailPage() {
 					Authorization: `Bearer ${token}`,
 				},
 			});
-			router.push("/cars");
+			router.push("/");
 		} catch {
 			setError("Failed to delete car.");
 		} finally {
@@ -110,98 +110,50 @@ export default function CarDetailPage() {
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div className='flex justify-center items-center h-screen text-lg'>Loading...</div>;
 	}
 
 	if (!car) {
-		return <div>Car not found</div>;
+		return <div className='flex justify-center items-center h-screen text-lg text-gray-500'>Car not found</div>;
 	}
 
 	return (
-		<div className='container mx-auto p-4'>
-			<h1 className='text-2xl font-bold mb-4'>Car Detail</h1>
+		<div className='max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg'>
+			<h1 className='text-3xl font-semibold mb-6'>Car Details</h1>
 			{error && <div className='text-red-500 mb-4'>{error}</div>}
 			{isEditing ? (
-				<form onSubmit={handleSubmit} className='space-y-4'>
-					<label className='block'>
-						<span>
-							Title<sup className='text-red-500'>*</sup>
-						</span>
+				<form onSubmit={handleSubmit} className='space-y-6'>
+					<div>
+						<label className='block text-gray-700'>Title *</label>
 						<input
 							type='text'
 							value={formData.title || ""}
 							required
 							onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-							className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-black p-2'
+							className='w-full mt-1 p-3 border rounded-md shadow-sm focus:ring focus:ring-indigo-300'
 						/>
-					</label>
-					<label className='block'>
-						<span>Description</span>
+					</div>
+					<div>
+						<label className='block text-gray-700'>Description</label>
 						<textarea
 							value={formData.description || ""}
-							onChange={(e) =>
-								setFormData({ ...formData, description: e.target.value })
-							}
-							className='mt-1 text-black p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+							onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+							className='w-full mt-1 p-3 border rounded-md shadow-sm focus:ring focus:ring-indigo-300'
 						/>
-					</label>
-					<label className='block'>
-						<span>Images</span>
-						<textarea
-							value={formData.images?.join("\n") || ""}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									images: e.target.value.split("\n").map((url) => url.trim()),
-								})
-							}
-							className='mt-1 block w-full text-black p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-						/>
-					</label>
-					<label className='block'>
-						<span>Tags</span>
-						<textarea
-							value={formData.tags?.join("\n") || ""}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									tags: e.target.value.split("\n").map((tag) => tag.trim()),
-								})
-							}
-							className='mt-1 block w-full text-black p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-						/>
-					</label>
-					<Button type='submit'>Update Car</Button>
+					</div>
+					<Button type='submit' className='w-full bg-indigo-600 text-white py-2 rounded-lg'>Update Car</Button>
 				</form>
 			) : (
-				<div className='flex flex-col md:flex-row'>
-					<div className='md:w-1/2'>
-						<h2 className='text-xl font-semibold mb-2'>{car.title}</h2>
-						<p className='mb-4'>{car.description}</p>
-						<div className='mb-4'>
-							<strong>Tags:</strong> {car.tags.join(", ")}
-						</div>
-						<div className='flex gap-2'>
-							<Button onClick={handleEdit} disabled={editting}>
-								{editting ? "Editting" : "Edit"}
-							</Button>
-							<Button onClick={handleDelete} disabled={deleting}>
-								{deleting ? "Deleting" : "Delete"}
-							</Button>
-						</div>
-					</div>
-					<div className='md:w-1/2 md:pl-4'>
-						<div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
-							{car.images.map((image, idx) => (
-								<div key={idx} className='aspect-w-16 aspect-h-9'>
-									<img
-										src={image}
-										alt={`Car image ${idx + 1}`}
-										className='object-cover w-full h-full rounded-md'
-									/>
-								</div>
-							))}
-						</div>
+				<div>
+					<h2 className='text-2xl font-bold'>{car.title}</h2>
+					<p className='text-gray-600'>{car.description}</p>
+					<div className='flex gap-4 mt-4'>
+						<Button onClick={handleEdit} disabled={editting} className='bg-blue-500 text-white px-4 py-2 rounded-md'>
+							{editting ? "Editing..." : "Edit"}
+						</Button>
+						<Button onClick={handleDelete} disabled={deleting} className='bg-red-500 text-white px-4 py-2 rounded-md'>
+							{deleting ? "Deleting..." : "Delete"}
+						</Button>
 					</div>
 				</div>
 			)}

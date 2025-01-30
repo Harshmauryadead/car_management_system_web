@@ -41,7 +41,7 @@ export default function CarCreatePage() {
 				}
 			);
 
-			router.push(`/cars/${response.data.car.id}`);
+			router.push(`/${response.data.car.id}`);
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
 				return err.response.data.error as string;

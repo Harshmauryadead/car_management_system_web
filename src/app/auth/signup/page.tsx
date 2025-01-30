@@ -29,42 +29,53 @@ export default function SignupPage() {
 	const [error, submitForm, isPending] = useActionState(handleSubmit, null);
 
 	return (
-		<div className='h-dvh w-full grid place-items-center'>
-			<form action={submitForm} className='p-4 rounded-lg bg-zinc-800 space-y-2'>
-				<h1 className='text-2xl font-bold'>Signup</h1>
+		<div className='h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-700'>
+			<form
+				action={submitForm}
+				className='w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-xl'>
+				<h1 className='text-3xl font-bold text-white text-center mb-4'>
+					Create an Account
+				</h1>
 
-				<fieldset>
-					<label className='block'>Email</label>
-					<input
-						type='email'
-						name='email'
-						autoComplete='email'
-						required
-						className='w-full rounded p-2 text-black border'
-					/>
-				</fieldset>
+				<div className='space-y-4'>
+					<fieldset>
+						<label className='block text-white/80 text-sm'>Email</label>
+						<input
+							type='email'
+							name='email'
+							autoComplete='email'
+							required
+							className='w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
+						/>
+					</fieldset>
 
-				<fieldset>
-					<label className='block'>Password</label>
-					<input
-						type='password'
-						name='password'
-						autoComplete='new-password'
-						required
-						className='w-full rounded p-2 text-black border'
-					/>
-				</fieldset>
+					<fieldset>
+						<label className='block text-white/80 text-sm'>Password</label>
+						<input
+							type='password'
+							name='password'
+							autoComplete='new-password'
+							required
+							className='w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
+						/>
+					</fieldset>
+				</div>
 
-				<div className='flex gap-2'>
-					<Button type='submit' disabled={isPending} className='bg-green-700'>
-						{isPending ? "Signin up..." : "Signup"}
+				<div className='flex flex-col gap-4 mt-6'>
+					<Button
+						type='submit'
+						disabled={isPending}
+						className='bg-blue-500 hover:bg-blue-600'>
+						{isPending ? "Signing up..." : "Signup"}
 					</Button>
-					<Link href='/auth/login' className={buttonVariants()}>
-						Login
+					<Link
+						href='/auth/login'
+						className={buttonVariants({ color: "secondary", size: "medium" })}>
+						Already have an account? Login
 					</Link>
 				</div>
 
-				{error && <div className='text-red-500 text-sm text-center'>{error}</div>}
+				{error && <div className='text-red-400 text-sm text-center mt-4'>{error}</div>}
 			</form>
 		</div>
 	);
